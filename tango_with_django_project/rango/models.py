@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+import datetime
 from django.db import models
 from django.template.defaultfilters import slugify
 # Create your models here.
@@ -12,6 +12,9 @@ class Category(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Category,self).save(*args, **kwargs)
+        if self.view<0:
+            self.view=0
+
         
     class Meta:
         verbose_name_plural = 'Categories'
