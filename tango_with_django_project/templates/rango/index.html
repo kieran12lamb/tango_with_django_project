@@ -9,7 +9,11 @@
 		<h1>Rango says...</h1>
 
 		<div>
+		{% if user.is_authenticated %}
+			howdy {{ user.username }}
+		{% else %}
 			hey there partner! <br />
+		{% endif %}
 		</div>
 		
 
@@ -19,14 +23,15 @@
 		<ul>
 			{% for category in categories %}
 				<li>
-					<a href="(% url 'show_category' category.slug %)">{{ category.name }}</a>
+					<a href="{% url 'show_category' category.slug %}">{{ category.name }}</a>
 				</li>
 			{% endfor %}
+
 		</ul>
 		{% else %}
 			<strong>There are no categories present.</strong>
 		{% endif %}
-		<a href="(% url 'add_category'%)">Add a New Category</a><br />
+		<a href="{% url 'add_category' %}">Add New Category</a><br />
 		</div>
 
 		<div>
@@ -38,6 +43,16 @@
 					<a href="{{ page.url}}">{{ page.title}}</a>
 				</li>
 			{% endfor %}
+			{% if user.is_authenticated %}
+				<li><a href="{% url 'restricted' %}">Restricted Page</a></li>
+				<li><a href="{% url 'logout' %}">Logout</a></li>
+			{% else %}
+				<li><a href="{% url 'login' %}">Sign In</a></li>
+				<li><a href="{% url 'register' %}">Sign Up</a></li>
+			{% endif %}
+				<li><a href="{% url 'add_category' %}">Add New Category</a></li>
+				<li><a href="{% url 'about' %}">About</a></li>
+				<li><a href="{% url 'index' %}">Index</a></li>
 		</ul>
 		{% else %}
 			<strong>There are no pages present.</strong>

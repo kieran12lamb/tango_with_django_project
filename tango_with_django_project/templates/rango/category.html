@@ -3,6 +3,7 @@
 
 {% block title_block %}
 	{{category.name }}
+	
 {% endblock %}
 
 {% block body_block %}
@@ -16,6 +17,7 @@
 			</ul>
 		{% else %}
 			<strong>No pages currently in category.</strong>
+			<a href="{% url 'add_page' category.slug %}">Add New Page</a><br />
 		{% endif %}
 	{% else %}
 		The specific category does not exist1

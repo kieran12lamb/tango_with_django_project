@@ -2,11 +2,13 @@
 {load staticfiles %}
 
 {% block title_block %}
+	Add a Page
 {% endblock %}
 
 {% block body_block %}
-	<h1>Add a Page</h1>
 	<div>
+		{% if category %}
+		<h1>Add a Page to {{category.name}}</h1>
 		<form id="page_form" method="post" action="/rango/category/{{ category.slug }}/add_page/">
 			{% csrf_token %}
 			{% for hidden in form.hidden_fields %}
@@ -21,4 +23,8 @@
 
 			<input type="submit" name="submit" value="Create Page" />
 		</form>
+
+		{% else %}
+			The specified category does not exist!
+		{% endif %}
 {% endblock %}
